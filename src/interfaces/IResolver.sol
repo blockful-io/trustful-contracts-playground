@@ -9,8 +9,6 @@ interface IResolver {
   /// @notice Actions that can be performed by the resolver.
   enum Action {
     NONE,
-    ASSIGN_MANAGER,
-    ASSIGN_VILLAGER,
     ATTEST,
     REPLY
   }
