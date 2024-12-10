@@ -136,9 +136,7 @@ contract ResolverTest is Test {
     titles[1] = "Is a good person";
     titles[2] = "Has a brilliant mind";
 
-    resolver.setAttestationTitle(titles[0], true);
-    resolver.setAttestationTitle(titles[1], true);
-    resolver.setAttestationTitle(titles[2], true);
+
 
     return titles;
   }

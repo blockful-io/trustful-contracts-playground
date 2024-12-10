@@ -47,7 +47,7 @@ interface IResolver {
   /// on the resolver.
   /// @param title The title of the attestation.
   /// @param isValid Whether the title for the attestation is valid or not. Defaults to false.
-  function setAttestationTitle(string memory title, bool isValid) external;
+  // function setAttestationTitle(string memory title, bool isValid) external;
 
   /// @dev Sets the action ID that schema can perform.
   /// The schema determines the data layout for the attestation, while the attestation

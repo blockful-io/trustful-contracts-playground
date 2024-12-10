@@ -24,7 +24,8 @@ contract Resolver is IResolver, AccessControl {
   // The global EAS contract.
   IEAS internal immutable _eas;
 
-  address internal immutable _deployer;
+   // Store deployer address
+    address private immutable _deployer;
 
   // Roles
   // bytes32 public constant ROOT_ROLE = keccak256("ROOT_ROLE");
@@ -44,7 +45,7 @@ contract Resolver is IResolver, AccessControl {
   mapping(bytes32 => Action) private _allowedSchemas;
 
   // Maps all attestation titles (badge titles) to be retrieved by the frontend
-  string[] private _attestationTitles;
+  // string[] private _attestationTitles;
 
   /// @dev Creates a new resolver.
   /// @param eas The address of the global EAS contract.
@@ -52,6 +53,9 @@ contract Resolver is IResolver, AccessControl {
     if (address(eas) == address(0)) revert InvalidEAS();
     _eas = eas;
     _deployer = msg.sender; 
+
+     // Initialize hardcoded attestation titles
+        _initializeAttestationTitles();
 
     // Assigns ROOT_ROLE as the admin of all roles
     // _setRoleAdmin(ROOT_ROLE, ROOT_ROLE);
@@ -63,6 +67,30 @@ contract Resolver is IResolver, AccessControl {
     // _grantRole(MANAGER_ROLE, msg.sender);
     // _grantRole(VILLAGER_ROLE, msg.sender);
   }
+
+   /// @dev Initializes the allowed attestation titles with hardcoded values
+    function _initializeAttestationTitles() private {
+        string[13] memory titles = [
+            "Changed my mind",
+            "Disagreed with somebody on stage",
+            "Created a session on the event",
+            "Voted on significant poll",
+            "Early contributor",
+            "Volunteered",
+            "Started a new club",
+            "Hosted a discussion",
+            "Friend from past events",
+            "Showed me a cool tech",
+            "Showed me around town",
+            "Good laughs",
+            "Good talk"
+        ];
+
+        for (uint i = 0; i < titles.length;) {
+            _allowedAttestationTitles[keccak256(abi.encode(titles[i]))] = true;
+            unchecked { i++; }
+        }
+    }
 
   /// @dev Ensures that only the EAS contract can make this call.
   modifier onlyEAS() {
@@ -238,25 +266,24 @@ contract Resolver is IResolver, AccessControl {
   }
 
   /// @inheritdoc IResolver
-  function getAllAttestationTitles() public view returns (string[] memory) {
-    string[] memory titles = new string[](_attestationTitles.length);
-    uint256 j = 0;
-    for (uint256 i = 0; i < _attestationTitles.length; ) {
-      if (_allowedAttestationTitles[keccak256(abi.encode(_attestationTitles[i]))]) {
-        titles[j] = _attestationTitles[i];
-        assembly {
-          j := add(j, 1)
-        }
-      }
-      assembly {
-        i := add(i, 1)
-      }
+ function getAllAttestationTitles() public pure returns (string[] memory) {
+        string[] memory titles = new string[](14);
+        titles[0] = "Changed my mind";
+        titles[1] = "Disagreed with somebody on stage";
+        titles[2] = "Created session on Zuzalu city";
+        titles[3] = "Wrote on Zuzagora";
+        titles[4] = "Voted on significant poll";
+        titles[5] = "Early contributor";
+        titles[6] = "Volunteered";
+        titles[7] = "Started a new club";
+        titles[8] = "Hosted a discussion";
+        titles[9] = "Friend from past Zu Events";
+        titles[10] = "Showed me a cool tech";
+        titles[11] = "Showed me around town";
+        titles[12] = "Good laughs";
+        titles[13] = "Good talk";
+        return titles;
     }
-    assembly {
-      mstore(titles, j)
-    }
-    return titles;
-  }
 
   /// @inheritdoc IResolver
   // function setAttestationTitle(string memory title, bool isValid) public onlyRole(MANAGER_ROLE) {
