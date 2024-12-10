@@ -24,6 +24,8 @@ contract Resolver is IResolver, AccessControl {
   // The global EAS contract.
   IEAS internal immutable _eas;
 
+  address internal immutable _deployer;
+
   // Roles
   // bytes32 public constant ROOT_ROLE = keccak256("ROOT_ROLE");
   // bytes32 public constant MANAGER_ROLE = keccak256("MANAGER_ROLE");
@@ -110,9 +112,9 @@ contract Resolver is IResolver, AccessControl {
     //   return assignManager(attestation);
 
     // Schema to checkIn / checkOut villagers
-    if (isActionAllowed(attestation.schema, Action.ASSIGN_VILLAGER)) {
-      return assignVillager(attestation);
-    }
+    // if (isActionAllowed(attestation.schema, Action.ASSIGN_VILLAGER)) {
+    //   return assignVillager(attestation);
+    // }
 
     // Schema to create event attestations (Attestations)
     if (isActionAllowed(attestation.schema, Action.ATTEST)) {
@@ -257,10 +259,10 @@ contract Resolver is IResolver, AccessControl {
   }
 
   /// @inheritdoc IResolver
-  function setAttestationTitle(string memory title, bool isValid) public onlyRole(MANAGER_ROLE) {
-    _allowedAttestationTitles[keccak256(abi.encode(title))] = isValid;
-    if (isValid) _attestationTitles.push(title);
-  }
+  // function setAttestationTitle(string memory title, bool isValid) public onlyRole(MANAGER_ROLE) {
+  //   _allowedAttestationTitles[keccak256(abi.encode(title))] = isValid;
+  //   if (isValid) _attestationTitles.push(title);
+  // }
 
   /// @inheritdoc IResolver
   function setSchema(bytes32 uid, uint256 action) public onlyDeployer {
