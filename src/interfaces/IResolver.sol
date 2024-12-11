@@ -9,8 +9,6 @@ interface IResolver {
   /// @notice Actions that can be performed by the resolver.
   enum Action {
     NONE,
-    ASSIGN_MANAGER,
-    ASSIGN_VILLAGER,
     ATTEST,
     REPLY
   }
@@ -43,13 +41,6 @@ interface IResolver {
   /// NOTE: Only the badges marked as valid will be returned.
   /// @return An array of all attestation titles.
   function getAllAttestationTitles() external view returns (string[] memory);
-
-  /// @dev Sets the attestation for a given title that will be attested.
-  /// When creating attestions, the title must match to the desired configuration saved
-  /// on the resolver.
-  /// @param title The title of the attestation.
-  /// @param isValid Whether the title for the attestation is valid or not. Defaults to false.
-  function setAttestationTitle(string memory title, bool isValid) external;
 
   /// @dev Sets the action ID that schema can perform.
   /// The schema determines the data layout for the attestation, while the attestation
