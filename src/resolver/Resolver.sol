@@ -267,21 +267,20 @@ contract Resolver is IResolver, AccessControl {
 
   /// @inheritdoc IResolver
  function getAllAttestationTitles() public pure returns (string[] memory) {
-        string[] memory titles = new string[](14);
+        string[] memory titles = new string[](13);
         titles[0] = "Changed my mind";
         titles[1] = "Disagreed with somebody on stage";
-        titles[2] = "Created session on Zuzalu city";
-        titles[3] = "Wrote on Zuzagora";
-        titles[4] = "Voted on significant poll";
-        titles[5] = "Early contributor";
-        titles[6] = "Volunteered";
-        titles[7] = "Started a new club";
-        titles[8] = "Hosted a discussion";
-        titles[9] = "Friend from past Zu Events";
-        titles[10] = "Showed me a cool tech";
-        titles[11] = "Showed me around town";
-        titles[12] = "Good laughs";
-        titles[13] = "Good talk";
+        titles[2] = "Created a session on the event";
+        titles[3] = "Voted on significant poll";
+        titles[4] = "Early contributor";
+        titles[5] = "Volunteered";
+        titles[6] = "Started a new club";
+        titles[7] = "Hosted a discussion";
+        titles[8] = "Friend from past events";
+        titles[9] = "Showed me a cool tech";
+        titles[10] = "Showed me around town";
+        titles[11] = "Good laughs";
+        titles[12] = "Good talk";
         return titles;
     }
 
